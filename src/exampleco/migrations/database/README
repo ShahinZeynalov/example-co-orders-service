@@ -1,1 +1,4 @@
 Generic single-database configuration.
+
+Theere was issue when automigrating the changes.
+Added path into alembic environment file to fix the issue.

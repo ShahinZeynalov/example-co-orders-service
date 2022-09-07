@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Float, Integer, String, text, TEXT, TIMESTAMP
-from marshmallow import fields, validate
+from marshmallow import fields
 from marshmallow_sqlalchemy import SQLAlchemySchema
 
 from . import Base
