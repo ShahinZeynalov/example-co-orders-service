@@ -12,6 +12,7 @@ lib64/
 parts/
 sdist/
 var/
+docker/data/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -31,3 +32,18 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+node_modules
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
