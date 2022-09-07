@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  test:
+    docker:
+    - image: cimg/python:3.9.1
+    steps:
+    - checkout
+    - run:
+        name: install python requirements
+        command: pip install --upgrade pip && pip install -r requirements.dev.txt
+    - run:
+        name: run tests
+        command: pytest  --cov-report term-missing:skip-covered --cov=src --cov-fail-under=100 -n auto
+    environment:
+    - CIRCLE_COMPARE_URL: https://github.com/CircleCI-Public/circleci-cli/compare/d61b92e55e51f294d839360c6b2c6df346c16bd6...d61b92e55e51f294d839360c6b2c6df346c16bd6
+  flake8:
+    docker:
+    - image: cimg/python:3.9.1
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - python-cache-key-{{ checksum "requirements.txt" }}-{{ checksum "requirements.dev.txt" }}
+    - run: pip install -r requirements.dev.txt
+    - save_cache:
+        key: python-cache-key-{{ checksum "requirements.txt" }}-{{ checksum "requirements.dev.txt" }}
+        paths:
+        - /home/circleci/.cache/pip
+        - /home/circleci/.pyenv
+    - run: flake8
+    environment:
+    - CIRCLE_COMPARE_URL: https://github.com/CircleCI-Public/circleci-cli/compare/d61b92e55e51f294d839360c6b2c6df346c16bd6...d61b92e55e51f294d839360c6b2c6df346c16bd6
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+    - flake8
+    - test
